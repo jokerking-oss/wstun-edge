@@ -1,0 +1,21 @@
+# Python 运行产物
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 本地机密（本仓库设计上不含任何凭据；万一你为了本地调试建了这些文件，别提交）
+.env
+*.env
+*.local
+secrets.*
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 运行时日志
+*.log

@@ -1,0 +1,30 @@
+# Render 蓝图：把本仓库一键部署成一个免费 Web Service。
+#
+# 用法：Render 控制台 -> New -> Blueprint -> 选本仓库 -> Apply
+# 然后在服务的 Environment 面板里补 4 个 Secret（见下方 sync:false 的项）。
+#
+# region 选 virginia：弗吉尼亚在美东，离上游住宅出口（北卡罗来纳）最近。
+services:
+  - type: web
+    name: wstun-edge
+    runtime: python
+    plan: free
+    region: virginia
+    numInstances: 1
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python edge_srv.py"
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      # ---- 以下 4 项是机密，仓库里不存值；在 Render 面板里手填 ----
+      - key: AUTH            # 客户端连接时带的 ?a=<token>，自己定一个长随机串
+        sync: false
+      - key: UP              # 上游住宅代理 host:port
+        sync: false
+      - key: UP_USER
+        sync: false
+      - key: UP_PASS
+        sync: false
+      # ---- 非机密 ----
+      - key: PYTHON_VERSION
+        value: "3.12.6"
